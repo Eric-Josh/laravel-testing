@@ -8,6 +8,8 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 use Illuminate\Support\Facades\Event;
 use App\Observers\ProductObserver;
 use App\Models\Product;
+use App\Events\UserloginHistory;
+use App\Listeners\StoreloginHistory;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -20,6 +22,12 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        'App\Events\UserCreated' => [
+            'App\Listeners\SendWelcomeEmail',
+        ],
+        UserloginHistory::class => [
+            StoreloginHistory::class,
+        ]
     ];
 
     /**
